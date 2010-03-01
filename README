@@ -1,6 +1,6 @@
 This web shell basically just runs whatever you tell it to run as if you were on the command line of the machine.  It runs as whatever user the webserver is running under, so take that into consideration.
 
-It does do a few (very few) more things than a simple "run this command" script.  It provides the last few commands as a sort of "history" like you may be accustomed to.  It also provides a scrolling window for which you can look back at past output.
+It does do a few (very few) more things than a simple "run this command" script.  It provides the last few commands as a sort of "history" like you may be accustomed to (try the up and down arrows).  It also provides a scrolling window for which you can look back at past output.
 
 Note:  This is not a hacking tool.  This was made for fun, and has much less features than most "hacking tool" php scripts.  On the other hand, if you let this sit out on the internet for anyone to type commands on your machine, you may just find yourself getting hacked.  I am not responsible for you doing stupid things with this.  
 
