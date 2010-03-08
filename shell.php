@@ -16,8 +16,8 @@
 
 body{background-color: black; }
 .output{
-  border: 0;
-  color: white;
+border: 0px;
+color: white;
   background-color: black;
   font-family:"Courier New",monospace;
   font-size:12px;
@@ -27,7 +27,8 @@ body{background-color: black; }
   margin:0px;
 }
 .input{
-  border:0;
+  float: left;
+  border:0px;
   border-bottom:2px inset white;
   border-top:2px inset white;
   color: white;
@@ -59,14 +60,17 @@ body{background-color: black; }
 .button{
   padding:0px;
   margin:0px;
-  border:1px outset white;
+  border:0px;
+  border-left:1px outset white;
+  border-top:1px outset white;
+  border-bottom:1px outset white;
   color:white;
   background-color: black;
   font-family:"Courier New",monospace;
   font-size:12px;
   text-align: center;
   height: 4%;
-  min-width:10%;
+  width:10%;
   float:right;
 }
 html,body{
