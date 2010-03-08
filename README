@@ -9,3 +9,9 @@ Also, don't make fun of me for how simple it is.
 TODO:
 * Add file upload capabilities
 
+Server Compatibility:
+Requires a server with PHP installed.  Only tested to work with apache, but should work on most *nix webservers.
+Probably wont work on Windows as is (the info section has *nix dependencies).
+
+Client Compatability:
+Tested in the latest Firefox and Chrome.
