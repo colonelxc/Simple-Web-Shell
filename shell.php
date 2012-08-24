@@ -210,7 +210,7 @@ function updateData(param)
   	
 	document.form1.output.value+= "$: " + param + "\n";
 	document.form1.output.scrollTop = document.form1.output.scrollHeight;
-  	var myurl = "./" + <?php echo "\"" . $_SERVER['REQUEST_URI']. "\""; ?>
+  	var myurl = <?php echo "\"" . $_SERVER['REQUEST_URI']. "\""; ?>
 
 	http.open("GET", myurl + "?id=" + escape(param), true);
 	http.onreadystatechange = useHttpResponse;
